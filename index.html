@@ -131,12 +131,12 @@ body{background:var(--blk);color:var(--ivory);font-family:Georgia,serif;font-siz
   .hdr,.loc-bar,.print-bar,.tabs,.srch,.qbtn{display:none!important}
   .panel{display:block!important}
   .card{break-inside:avoid;border:1px solid #ccc;margin-bottom:6px}
-  .card:not(.open) .cb{display:none}
-  .card.open .cb{display:block}
+  .card .cb{display:block!important}
+  .chv{display:none}
   body{background:#fff;color:#111}
-  .ch{background:#fff}
-  .ct,.cm,.cr,.cp,.price{color:#111!important}
-  .sec-lbl{color:#333!important}
+  .ch,.cb{background:#fff!important}
+  .ct,.cm,.cr,.cp,.price,.sec-lbl,.taste-row,.si,.flav,.prod,.reg,.notes{color:#111!important}
+  .sec-lbl{color:#333!important;border-color:#ccc!important}
   [data-loc="sf"].print-hide-sf,[data-loc="mp"].print-hide-mp{display:none!important}
 }
 
