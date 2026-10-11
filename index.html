@@ -50,8 +50,11 @@ body{background:var(--blk);color:var(--ivory);font-family:Georgia,serif;font-siz
 .cb{display:none;padding:0 14px 14px;border-top:1px solid var(--brd)}
 .card.open .cb{display:block}
 .cb-inner{display:flex;gap:14px;align-items:flex-start}
-.bimg{width:60px;height:210px;flex-shrink:0;object-fit:contain;object-position:center;margin-top:12px}
+.bimg-wrap{width:112px;flex-shrink:0;background:#fff;border-radius:3px;padding:7px;margin-top:12px}
+.bimg{width:100%;max-height:170px;object-fit:contain;display:block}
 .cb-text{flex:1;min-width:0}
+.cthumb{width:34px;height:46px;flex-shrink:0;background:#fff;border-radius:3px;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-right:2px}
+.cthumb img{max-width:100%;max-height:100%;object-fit:contain}
 .taste-row{margin:12px 0;padding:9px 11px;background:var(--surf2);border-radius:3px}
 .taste-lbl{font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
 .taste-val{font-size:12px;font-style:italic;color:var(--ivory);opacity:.88;line-height:1.4}
@@ -136,7 +139,7 @@ body{background:var(--blk);color:var(--ivory);font-family:Georgia,serif;font-siz
   .card{break-inside:avoid;border:1px solid #ccc;margin-bottom:6px}
   .card .cb{display:block!important}
   .chv{display:none}
-  .bimg{width:60px!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .bimg-wrap{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#fff!important}
   body{background:#fff;color:#111}
   .ch,.cb{background:#fff!important}
   .ct,.cm,.cr,.cp,.price,.sec-lbl,.taste-row,.si,.flav,.prod,.reg,.notes{color:#111!important}
@@ -254,15 +257,16 @@ function sCard(item,idx,type){
   const psf=item.psf||'';const pmp=item.pmp||'';
   const dispPrice=(currentLoc==='sf'&&psf)?psf:(currentLoc==='mp'&&pmp)?pmp:item.p;
   const hideCls=(currentLoc==='sf'&&loc==='mp')?' hide-mp':(currentLoc==='mp'&&loc==='sf')?' hide-sf':'';
-  const imgHtml=item.img?`<img class="bimg" src="${item.img}" alt="${item.t}">`:'';
+  const thumb=item.img?`<div class="cthumb"><img src="${item.img}" alt="" loading="lazy"></div>`:'';
+  const media=item.img?`<div class="bimg-wrap"><img class="bimg" src="${item.img}" alt="${item.t}" loading="lazy"></div>`:'';
   return `<div class="card${open?' open':''}${hideCls}" id="${id}" data-loc="${loc}" data-psf="${psf}" data-pmp="${pmp}" onclick="tog('${id}')">
-    <div class="ch"><div class="ctg"><div class="ct">${item.t}</div><div class="cm"><span class="cr">${item.r}</span><span class="price cp">${dispPrice}</span></div></div><span class="chv">&#9662;</span></div>
+    <div class="ch">${thumb}<div class="ctg"><div class="ct">${item.t}</div><div class="cm"><span class="cr">${item.r}</span><span class="price cp">${dispPrice}</span></div></div><span class="chv">&#9662;</span></div>
     <div class="cb">
-      <div class="cb-inner">${imgHtml}<div class="cb-text">
+      <div class="cb-inner"><div class="cb-text">
       <div class="taste-row"><div class="taste-lbl">Tasting Notes</div><div class="taste-val">${taste}</div></div>
       <div class="cd">${item.d}</div>
       <div class="sg">${specs.filter(s=>s[1]).map(s=>`<div class="si"><div class="sl">${s[0]}</div><div class="sv">${s[1]}</div></div>`).join('')}</div>
-      </div></div>
+      </div>${media}</div>
     </div>
   </div>`;
 }
